@@ -1,3 +1,13 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer components {
+    .messageFromMe {
+        @apply bg-indigo-300 bg-opacity-25;
+    }
+
+    .messageToMe {
+        @apply bg-gray-200 bg-opacity-25;
+    }
+}

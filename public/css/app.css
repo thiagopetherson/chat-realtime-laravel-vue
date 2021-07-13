@@ -1062,6 +1062,16 @@ select {
 .prose > :last-child {
 	margin-bottom: 0;
 }
+.messageFromMe {
+	--tw-bg-opacity: 1;
+	background-color: rgba(165, 180, 252, var(--tw-bg-opacity));
+	--tw-bg-opacity: 0.25;
+}
+.messageToMe {
+	--tw-bg-opacity: 1;
+	background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+	--tw-bg-opacity: 0.25;
+}
 .fixed {
 	position: fixed;
 }
@@ -1399,6 +1409,9 @@ select {
 .overflow-y-hidden {
 	overflow-y: hidden;
 }
+.overflow-y-scroll {
+	overflow-y: scroll;
+}
 .truncate {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -1528,12 +1541,11 @@ select {
 	--tw-bg-opacity: 1;
 	background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
 }
-.bg-indigo-300 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(165, 180, 252, var(--tw-bg-opacity));
-}
 .bg-opacity-25 {
 	--tw-bg-opacity: 0.25;
+}
+.bg-opacity-50 {
+	--tw-bg-opacity: 0.5;
 }
 .object-cover {
 	-o-object-fit: cover;
@@ -1864,6 +1876,24 @@ select {
 }
 .ease-in {
 	transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+@layer components {
+    .messageFromMe {
+		--tw-bg-opacity: 1;
+		background-color: rgba(165, 180, 252, var(--tw-bg-opacity));
+	}
+    .messageFromMe {
+		--tw-bg-opacity: 0.25;
+	}
+
+    .messageToMe {
+		--tw-bg-opacity: 1;
+		background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+	}
+
+    .messageToMe {
+		--tw-bg-opacity: 0.25;
+	}
 }
 .hover\:cursor-pointer:hover {
 	cursor: pointer;
@@ -2291,4 +2321,3 @@ select {
 		padding-right: 2rem;
 	}
 }
-
