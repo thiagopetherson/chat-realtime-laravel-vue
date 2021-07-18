@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\Chat\SendMessage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Symfony\Component\httpFoundation\Response; // Chamando a classe de respostas (como as de erros por exemplo)
 
 
@@ -46,6 +48,9 @@ class MessageController extends Controller
         $message->to = $request->to;
         $message->content = filter_var($request->content, FILTER_SANITIZE_STRIPPED);
         $message->save();
+
+        // Chamando o evento
+        Event::dispatch(new SendMessage($message, $request->to)); // Enviando a mensagem (objeto) e quem receberá
     }
 
     /**

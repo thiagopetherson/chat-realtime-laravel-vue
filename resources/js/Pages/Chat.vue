@@ -62,6 +62,7 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout'
     import moment from 'moment'
+    import store from '../store/store.js'
 
     export default {
         components: {
@@ -73,6 +74,11 @@
                 messages: [],
                 userActive: null,
                 message:''
+            }
+        },
+        computed: {
+            user () {
+                return store.state.user
             }
         },
         methods: {
@@ -106,7 +112,7 @@
 
                     // Pegamos o retorno com a nova mensagem e atualizamos as mensagens do chat
                     this.messages.push({
-                        'from': 1,
+                        'from': this.user.id, // Pegando esse do Store
                         'to': this.userActive.id,
                         'content': this.message,
                         'created_at': new Date().toISOString(),
@@ -124,9 +130,17 @@
             }
         },
         mounted () {
+
             axios.get('api/users').then(response => {
                 this.users = response.data.users
             })
+
+            // Se conectando a um canal (no caso aqui, privado)
+            // Usando o ponto ali, evita de ter que colocar o namespace todo
+            Echo.private(`user.${this.user.id}`).listen('.SendMessage', (e) => {
+                console.log(e)
+            }) // Esse evento é aquele que nomeamos no método broadcastAs
+
         }
     }
 </script>
