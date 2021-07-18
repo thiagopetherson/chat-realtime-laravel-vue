@@ -135,10 +135,11 @@
                 this.users = response.data.users
             })
 
-            // Se conectando a um canal (no caso aqui, privado)
+            // Se conectando a um canal (no caso aqui, privado) | canal user.id
             // Usando o ponto ali, evita de ter que colocar o namespace todo
-            Echo.private(`user.${this.user.id}`).listen('.SendMessage', (e) => {
-                console.log(e)
+            Echo.private(`user.${this.user.id}`).listen('.SendMessage', (data) => {
+                console.log(data)
+                console.log('O evento retornou')
             }) // Esse evento é aquele que nomeamos no método broadcastAs
 
         }

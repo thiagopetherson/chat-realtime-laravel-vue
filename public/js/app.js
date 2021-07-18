@@ -19547,11 +19547,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     axios.get('api/users').then(function (response) {
       _this3.users = response.data.users;
-    }); // Se conectando a um canal (no caso aqui, privado)
+    }); // Se conectando a um canal (no caso aqui, privado) | canal user.id
     // Usando o ponto ali, evita de ter que colocar o namespace todo
 
-    Echo["private"]("user.".concat(this.user.id)).listen('.SendMessage', function (e) {
-      console.log(e);
+    Echo["private"]("user.".concat(this.user.id)).listen('.SendMessage', function (data) {
+      console.log(data);
+      console.log('O evento retornou');
     }); // Esse evento é aquele que nomeamos no método broadcastAs
   }
 });

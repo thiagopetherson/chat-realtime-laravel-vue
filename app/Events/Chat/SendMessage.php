@@ -40,17 +40,15 @@ class SendMessage implements ShouldBroadcast
     }
 
     // Método que seta o nome do evento
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'SendMessage';
     }
 
     // Método que seta o conteúdo
-    public function broadcastWith()
+    public function broadcastWith(): array
     {
-        return [
-            'message' => $this->message
-        ];
+        return ['message' => $this->message];
     }
 
 
