@@ -1,4 +1,4 @@
-Chat Realtime Desenvolvido com Laravel 8 e VueJS 2.<br>
+Chat Realtime Desenvolvido com Laravel 8 e VueJS 3.<br>
 No Laravel é utilizado Jetstream com Inertia.js, Sanctum, Laravel WebSockets, Laravel Echo.<br>
 No VueJS é utilizado Vuex e Vuex-persistedstate.<br>
 Para estilização utilizamos o Tailwind CSS.
