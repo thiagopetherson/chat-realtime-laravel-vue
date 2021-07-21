@@ -17,6 +17,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
+
 // Criando uma rota de channel
 Broadcast::channel('user.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
