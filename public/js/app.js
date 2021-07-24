@@ -24894,9 +24894,6 @@ __webpack_require__.r(__webpack_exports__);
   mutations: {
     setUserState: function setUserState(state, value) {
       return state.user = value;
-    },
-    setDarkState: function setDarkState(state, value) {
-      return state.dark = value;
     }
   },
   actions: {

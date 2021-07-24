@@ -8,8 +8,7 @@ export default new Vuex.Store({
         user: {}
     },
     mutations: {
-        setUserState: (state, value) => state.user = value,
-        setDarkState: (state, value) => state.dark = value
+        setUserState: (state, value) => state.user = value
     },
     actions: {
         userStateAction: (context) => {
