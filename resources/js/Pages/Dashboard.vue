@@ -21,7 +21,7 @@
 
     export default {
         components: {
-            AppLayout,           
+            AppLayout,
         },
     }
 </script>

@@ -19605,10 +19605,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
               case 8:
-                console.log(data);
-                console.log('O evento retornou');
-
-              case 10:
               case "end":
                 return _context3.stop();
             }
@@ -24898,6 +24894,9 @@ __webpack_require__.r(__webpack_exports__);
   mutations: {
     setUserState: function setUserState(state, value) {
       return state.user = value;
+    },
+    setDarkState: function setDarkState(state, value) {
+      return state.dark = value;
     }
   },
   actions: {
