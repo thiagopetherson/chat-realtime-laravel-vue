@@ -19433,6 +19433,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+// import Vue from 'vue'
 
 
 
@@ -19464,6 +19465,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _loadMessages = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(userId) {
         var _this = this;
 
+        var user;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -19479,9 +19481,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 3:
+                // Limpando a bolinha de mensagem recebida quando clicamos no respectivo chat da pessoa
+                user = this.users.filter(function (user) {
+                  if (user.id === userId) {
+                    return user;
+                  }
+                }); // Quando encontrar um usuário
+
+                if (user) {
+                  // user.notification = true (Deveria ser reativo, mas não vai funcionar, então...)
+                  // Vamos setar da forma abaixo para ser reativo
+                  //Vue.set(user[0], 'notification', true)
+                  user[0].notification = false;
+                } // Descendo o scroll
+
+
                 this.scrollToBottom();
 
-              case 4:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -19550,10 +19567,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }); // Se conectando a um canal (no caso aqui, privado) | canal user.id
     // Usando o ponto ali, evita de ter que colocar o namespace todo
 
-    Echo["private"]("user.".concat(this.user.id)).listen('.SendMessage', function (data) {
-      console.log(data);
-      console.log('O evento retornou');
-    }); // Esse evento é aquele que nomeamos no método broadcastAs
+    Echo["private"]("user.".concat(this.user.id)).listen('.SendMessage', /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(data) {
+        var user;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!(_this3.userActive && _this3.userActive.id === data.message.from)) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _context3.next = 3;
+                return _this3.messages.push(data.message);
+
+              case 3:
+                _this3.scrollToBottom();
+
+                _context3.next = 8;
+                break;
+
+              case 6:
+                // Colocando a bolinha de nova mensagem
+                user = _this3.users.filter(function (user) {
+                  // Quando o usuário que estivermos percorrendo, for igual ao usuário que enviou a mensagem
+                  if (user.id === data.message.from) {
+                    return user;
+                  }
+                }); // Quando encontrar um usuário
+
+                if (user) {
+                  // user.notification = true (Deveria ser reativo, mas não vai funcionar, então...)
+                  // Vamos setar da forma abaixo para ser reativo
+                  //Vue.set(user[0], 'notification', true)
+                  user[0].notification = true;
+                }
+
+              case 8:
+                console.log(data);
+                console.log('O evento retornou');
+
+              case 10:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function (_x2) {
+        return _ref.apply(this, arguments);
+      };
+    }()); // Esse evento é aquele que nomeamos no método broadcastAs
   }
 });
 
@@ -23193,13 +23259,10 @@ var _hoisted_5 = {
 var _hoisted_6 = {
   "class": "flex item-center"
 };
-
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+var _hoisted_7 = {
+  key: 0,
   "class": "ml-2 w-2 h-2 bg-blue-500 rounded-full"
-}, null, -1
-/* HOISTED */
-);
-
+};
 var _hoisted_8 = {
   "class": "w-9/12 flex flex-col justify-between"
 };
@@ -23241,7 +23304,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           "class": ["p-6 text-lg text-gray-600 leading-7 font-semibold border-b border-gray-200 hover:bg-gray-200 hover:bg-opacity-50 hover:cursor-pointer", $data.userActive && $data.userActive.id == user.id ? 'bg-gray-200 bg-opacity-50' : '']
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(user.name) + " ", 1
         /* TEXT */
-        ), _hoisted_7])], 10
+        ), user.notification ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("span", _hoisted_7)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])], 10
         /* CLASS, PROPS */
         , ["onClick"]);
       }), 128
