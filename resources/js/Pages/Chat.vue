@@ -1,7 +1,7 @@
 <template>
     <app-layout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight dark:text-gray-400">
                 Chat
             </h2>
         </template>
@@ -64,6 +64,7 @@
 import AppLayout from '@/Layouts/AppLayout'
 import moment from 'moment'
 import store from '../store/store.js'
+
 export default {
     components: {
         AppLayout,
@@ -79,6 +80,17 @@ export default {
     computed: {
         user () {
             return store.state.user
+        },
+        dark: {
+            // getter
+            get: function () {
+                return store.getters.getDark
+            },
+            // setter
+            set: function (newValue) {
+                store.dispatch("darkStateAction", { value: newValue });
+                newValue === false ? document.querySelector("html").classList.remove("dark") : document.querySelector("html").classList.add("dark")
+            }
         }
     },
     methods: {
@@ -133,9 +145,15 @@ export default {
         },
         formatDate: function(date) {
             return moment(date).format("DD/MM/YYYY HH:mm");
+        },
+        toggleTheme(){
+            this.dark = !store.getters.getDark
         }
     },
     mounted () {
+        // Setando o modo dark
+        this.dark = store.getters.getDark
+
         axios.get('api/users').then(response => {
             this.users = response.data.users
         })
